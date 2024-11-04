@@ -40,7 +40,7 @@ const { settingVisible } = storeToRefs(toolbarStore)
                   <li>
                     <a
                       v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
+                      class="p-ripple text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
                     >
                       <i class="pi pi-home mr-2" />
                       <span class="font-medium">Dashboard</span>

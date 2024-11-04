@@ -1,6 +1,6 @@
-import { acceptHMRUpdate, defineStore } from "pinia"
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
-export const useToolbarStore = defineStore("toolbar", () => {
+export const useToolbarStore = defineStore('toolbar', () => {
   const settingVisible = ref(false)
   const supportVisible = ref(false)
 

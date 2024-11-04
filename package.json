@@ -5,14 +5,23 @@
   "packageManager": "pnpm@9.12.2",
   "scripts": {
     "build": "nuxi build",
-    "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev",
-    "dev": "nuxi dev",
+    "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev --dotenv .env.local",
+    "dev": "nuxi dev --dotenv .env.local",
     "generate": "nuxi generate",
     "prepare": "nuxi prepare",
     "start": "node .output/server/index.mjs",
     "start:generate": "npx serve .output/public",
     "lint": "eslint .",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@primevue/themes": "^4.2.1",
+    "drizzle-orm": "^0.36.0",
+    "pg": "^8.13.1",
+    "primevue": "^4.2.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.8.0",
@@ -28,22 +37,20 @@
     "@pinia/nuxt": "^0.5.5",
     "@primevue/auto-import-resolver": "^4.2.1",
     "@primevue/nuxt-module": "^4.2.1",
+    "@types/pg": "^8.11.10",
     "@unocss/eslint-config": "^0.63.6",
     "@unocss/nuxt": "^0.63.6",
     "@vite-pwa/nuxt": "^0.10.5",
     "@vueuse/nuxt": "^11.2.0",
     "consola": "^3.2.3",
     "dayjs-nuxt": "^2.1.11",
+    "drizzle-kit": "^0.27.1",
     "eslint": "^9.13.0",
     "eslint-plugin-format": "^0.1.2",
     "nuxt": "^3.13.2",
     "pinia": "^2.2.4",
-    "typescript": "^5.6.3",
+    "typescript": "^5.6.0",
     "unplugin-vue-components": "^0.27.4",
     "vue-tsc": "^2.1.6"
-  },
-  "dependencies": {
-    "@primevue/themes": "^4.2.1",
-    "primevue": "^4.2.1"
   }
 }

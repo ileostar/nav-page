@@ -1,4 +1,4 @@
-import Aura from '@primevue/themes/aura';
+import Aura from '@primevue/themes/aura'
 import { pwa } from './app/config/pwa'
 import { appDescription } from './app/constants/index'
 
@@ -39,23 +39,8 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '@unocss/reset/tailwind.css'
+    '@unocss/reset/tailwind.css',
   ],
-  primevue: {
-    autoImport: true,
-      options: {
-          ripple: true,
-          inputVariant: 'filled',
-          theme: {
-              preset: Aura,
-              options: {
-                  prefix: 'p',
-                  darkModeSelector: 'system',
-                  cssLayer: false
-              }
-          }
-      }
-  },
 
   colorMode: {
     classSuffix: '',
@@ -93,6 +78,21 @@ export default defineNuxtConfig({
       standalone: false,
       nuxt: {
         sortConfigKeys: true,
+      },
+    },
+  },
+  primevue: {
+    autoImport: true,
+    options: {
+      ripple: true,
+      inputVariant: 'filled',
+      theme: {
+        preset: Aura,
+        options: {
+          prefix: 'p',
+          darkModeSelector: 'system',
+          cssLayer: false,
+        },
       },
     },
   },

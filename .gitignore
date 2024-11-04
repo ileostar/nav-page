@@ -5,3 +5,8 @@ dist
 .nuxt
 .env
 .idea/
+
+.vercel
+.env.development.local
+.env.local
+.env
