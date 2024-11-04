@@ -36,39 +36,45 @@ const navItems: NavItem[] = [
     icon: 'i-carbon-portfolio',
   },
 ]
+
+const isExpanded = ref(true)
 </script>
 
 <template>
-  <main class="mx-auto max-w-6xl px-4 py-8">
-    <div class="mb-12 text-center">
-      <div class="mb-4 text-gray-500">
-        {{ $dayjs().format('HH:mm:ss') }}
-      </div>
-      <h1 class="mb-4 text-4xl font-bold">
-        个人导航
-      </h1>
-      <p class="text-gray-500">
-        欢迎访问我的个人空间
-      </p>
-    </div>
+  <div
+    :class="`relative py-15  w-full flex flex-col items-center justify-center h-screen overflow-hidden ${isExpanded ? '' : 'pb-90'}`">
+    <Timer v-model="isExpanded" />
 
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-4 md:grid-cols-2">
-      <a
-        v-for="item in navItems"
-        :key="item.title"
-        :href="item.link"
-        class="block rounded-lg bg-white p-6 shadow-sm transition-colors duration-200 hover:bg-gray-50"
-      >
-        <div class="flex items-center gap-4">
-          <div v-if="item.icon" :class="item.icon" class="text-2xl text-gray-600" />
-          <div>
-            <h3 class="mb-2 text-lg font-medium">{{ item.title }}</h3>
-            <p class="text-sm text-gray-500">{{ item.desc }}</p>
-          </div>
+    <Transition enter-active-class="transition duration-300 ease-out"
+      enter-from-class="transform translate-y-8 opacity-0" enter-to-class="transform translate-y-0 opacity-100"
+      leave-active-class="transition duration-300 ease-in" leave-from-class="transform translate-y-0 opacity-100"
+      leave-to-class="transform translate-y-8 opacity-0">
+      <div v-show="isExpanded" class="flex-1 w-full">
+        <div class="grid grid-cols-1 mx-auto max-w-6xl gap-6 lg:grid-cols-4 md:grid-cols-2">
+          <a v-for="item in navItems" :key="item.title" :href="item.link"
+            class="block rounded-lg bg-white/80 p-6 shadow-sm backdrop-blur transition-all duration-200 hover:bg-white hover:shadow-md">
+            <div class="flex items-center gap-4">
+              <div v-if="item.icon" :class="item.icon" class="text-2xl text-gray-600" />
+              <div>
+                <h3 class="mb-2 text-lg font-medium">{{ item.title }}</h3>
+                <p class="text-sm text-gray-500">{{ item.desc }}</p>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
-    </div>
+      </div>
+    </Transition>
 
-    <ToolBar />
-  </main>
+    <DailyQuote />
+    <ToolBars />
+    <SettingsDrawer />
+    <SupportDialog />
+  </div>
 </template>
+
+<style>
+html,
+body {
+  overflow: hidden;
+}
+</style>
