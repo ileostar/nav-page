@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'dayjs-nuxt',
     '@nuxtjs/google-fonts',
+    '@primevue/nuxt-module',
   ],
 
   devtools: {
