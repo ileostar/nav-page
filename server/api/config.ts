@@ -26,11 +26,9 @@ async function getUserConfig(userId?: string) {
   if (!userId)
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
 
-  const config = await db.query.userConfigs.findFirst({
-    where: eq(userConfigs.userId, userId),
-  })
+  const config = await db.select().from(userConfigs).where(eq(userConfigs.userId, userId)).limit(1)
 
-  return config || {
+  return config[0] || {
     theme: 'light',
     backgroundType: 'color',
     backgroundValue: '#f5f5f5',
@@ -43,11 +41,9 @@ async function updateUserConfig(userId: string, config: Partial<NewUserConfig>) 
   if (!userId)
     throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
 
-  const existingConfig = await db.query.userConfigs.findFirst({
-    where: eq(userConfigs.userId, userId),
-  })
+  const existingConfig = await db.select().from(userConfigs).where(eq(userConfigs.userId, userId)).limit(1)
 
-  if (existingConfig) {
+  if (existingConfig[0]) {
     const [updatedConfig] = await db.update(userConfigs)
       .set(config)
       .where(eq(userConfigs.userId, userId))
