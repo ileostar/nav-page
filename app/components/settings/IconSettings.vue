@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const iconSettings = useLocalStorage('icon-settings', {
-  showIcons: true,
-})
+// const iconSettings = useLocalStorage('icon-settings', {
+//   showIcons: true,
+// })
 
-function toggleIcons() {
-  iconSettings.value.showIcons = !iconSettings.value.showIcons
-}
+// function toggleIcons() {
+//   iconSettings.value.showIcons = !iconSettings.value.showIcons
+// }
 const navSettings = useLocalStorage('nav-settings', {
   display: 'card',
   columns: 4,
@@ -15,8 +15,6 @@ const navSettings = useLocalStorage('nav-settings', {
 <template>
   <div class="space-y-4">
     <h3 class="text-lg font-medium">导航设置</h3>
-    
-    <!-- 显示方式 -->
     <div class="space-y-2">
       <label class="text-sm font-medium">显示方式</label>
       <div class="flex gap-4">

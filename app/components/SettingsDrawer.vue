@@ -61,26 +61,25 @@ const sidebarItems = [
   },
 ]
 
-const themeColor = ref('#3498db')
+const configStore = useConfigStore()
+const { themeColor } = storeToRefs(configStore)
 </script>
 
 <template>
   <div class="card flex justify-center">
-    <Drawer
-      v-model:visible="settingVisible"
-      :modal="false"
-      class="relative z-[999] !w-full lg:!w-[38rem] md:!w-80"
-      position="right"
-    >
+    <Drawer v-model:visible="settingVisible" :modal="false" class="relative z-[999] !w-full lg:!w-[38rem] md:!w-80"
+      position="right">
       <template #container="{ closeCallback }">
         <div class="h-full w-full flex flex-col">
           <!-- Header -->
           <div class="h-30 flex shrink-0 items-center justify-between px-6 pt-4">
-            <div class="absolute z-50 top-0 -left-12 h-12 w-12 flex items-center justify-center cursor-pointer bg-white/20 hover:bg-black/30" @click="closeCallback">
-              <div class="i-carbon:close-large h-8 w-8 text-white transition transform hover:rotate-90 motion-reduce:transition-none motion-reduce:hover:transform-none z-50" />
+            <div
+              class="absolute z-50 top-0 -left-12 h-12 w-12 flex items-center justify-center cursor-pointer bg-white/20 hover:bg-black/30"
+              @click="closeCallback">
+              <div class="i-carbon:close-large h-7 w-7 text-white transition hover:rotate-90 z-50" />
             </div>
             <Logos />
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 text-xl font-medium">
               {{ sidebarItems.find(item => item.label === currentTab)?.label }}
             </div>
           </div>
@@ -89,23 +88,19 @@ const themeColor = ref('#3498db')
           <div class="mb-2 h-full w-full flex gap-4 overflow-y-auto pl-3">
             <!-- Sidebar -->
             <ul class="w-40 flex flex-col gap-3">
-              <li
-                v-for="item in sidebarItems"
-                :key="item.label"
-                class="h-12 flex cursor-pointer items-center gap-3 rounded-lg px-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                :class="currentTab === item.label ? 'bg-gray-100 dark:bg-gray-800' : ''"
-                @click="currentTab = item.label"
-              >
+              <li v-for="item in sidebarItems" :key="item.label"
+                class="relative h-12 flex cursor-pointer items-center gap-3 e rounded-lg hover:bg-gray-400/10"
+                :class="currentTab === item.label ? 'bg-gray-400/10' : ''"
+                :style="{ color: currentTab === item.label ? themeColor : '' }" @click="currentTab = item.label">
+                <div h6 w1 rd-2 :style="{ backgroundColor: currentTab === item.label ? themeColor : '' }" />
                 <div :class="item.icon" class="text-xl" />
                 <span>{{ item.label }}</span>
               </li>
             </ul>
 
             <!-- Settings Panel -->
-            <div class="flex-1 rounded-l-lg bg-white/50 p-4 dark:bg-gray-800/50">
-              <component
-                :is="sidebarItems.find(item => item.label === currentTab)?.component"
-              />
+            <div class="flex-1 rounded-l-lg bg-gray/10 p-4">
+              <component :is="sidebarItems.find(item => item.label === currentTab)?.component" />
             </div>
           </div>
         </div>
