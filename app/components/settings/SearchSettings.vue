@@ -3,46 +3,57 @@ const searchSettings = useLocalStorage('search-settings', {
   defaultEngine: 'baidu',
   showSearchSuggestions: true,
   openInNewTab: true,
+  isVisible: true,
+  height: 50,
+  borderRadius: 5,
+  opacity: 1,
 })
 
+const searchSettingConfig = ref({
+  searchHistory: true
+})
 
-const searchStore = useSearchStore()
-const { searchEngines } = storeToRefs(searchStore)
+const configStore = useConfigStore()
+const { themeColor } = storeToRefs(configStore)
+
+
+const amberSwitch = ref({
+  root: {
+    checkedBackground: themeColor,
+    checkedHoverBackground: themeColor
+  }
+});
 </script>
 
 <template>
   <div class="space-y-6">
-    <h3 class="text-lg font-medium">
-      搜索设置
-    </h3>
-
-    <div class="space-y-4">
-      <div class="space-y-2">
-        <label class="text-sm font-medium">默认搜索引擎</label>
-        <select v-model="searchSettings.defaultEngine" class="w-full border rounded-lg p-2">
-          <option v-for="engine in searchEngines" :key="engine.name" :value="engine.name">
-            {{ engine.name }}
-          </option>
-        </select>
+    <BaseCard>
+      <div class="my-3 flex justify-between items-center">
+        <label class="text-lg font-medium">搜索栏显示</label>
+        <ToggleSwitch v-model="searchSettings.isVisible" :dt="amberSwitch" />
       </div>
 
-      <div class="flex items-center gap-2">
-        <input
-          v-model="searchSettings.showSearchSuggestions"
-          type="checkbox"
-          class="border-gray-300 rounded"
-        >
-        <label class="text-sm">显示搜索建议</label>
+      <div class="my-3 flex justify-between items-center">
+        <label class="text-lg font-medium">搜索栏高度</label>
+        <Slider v-model="searchSettings.height" class="w-56" />
       </div>
 
-      <div class="flex items-center gap-2">
-        <input
-          v-model="searchSettings.openInNewTab"
-          type="checkbox"
-          class="border-gray-300 rounded"
-        >
-        <label class="text-sm">在新标签页中打开搜索结果</label>
+      <div class="my-3 flex justify-between items-center">
+        <label class="text-lg font-medium">圆角</label>
+        <Slider v-model="searchSettings.borderRadius" class="w-56" />
       </div>
-    </div>
+
+      <div class="my-3 flex justify-between items-center">
+        <label class="text-lg font-medium">透明度</label>
+        <Slider v-model="searchSettings.opacity" class="w-56" />
+      </div>
+    </BaseCard>
+
+    <BaseCard>
+      <div class="flex justify-between">
+        <label class="text-lg font-medium">搜索历史</label>
+        <ToggleSwitch v-model="searchSettingConfig.searchHistory" :dt="amberSwitch" />
+      </div>
+    </BaseCard>
   </div>
 </template>

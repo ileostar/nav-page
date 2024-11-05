@@ -93,13 +93,13 @@ const { themeColor } = storeToRefs(configStore)
                 :class="currentTab === item.label ? 'bg-gray-400/10' : ''"
                 :style="{ color: currentTab === item.label ? themeColor : '' }" @click="currentTab = item.label">
                 <div h6 w1 rd-2 :style="{ backgroundColor: currentTab === item.label ? themeColor : '' }" />
-                <div :class="item.icon" class="text-xl" />
-                <span>{{ item.label }}</span>
+                <div :class="item.icon" class="text-lg" />
+                <span text-lg>{{ item.label }}</span>
               </li>
             </ul>
 
             <!-- Settings Panel -->
-            <div class="flex-1 rounded-l-lg bg-gray/10 p-4">
+            <div class="flex-1 rounded-l-lg bg-gray/10 p-3">
               <component :is="sidebarItems.find(item => item.label === currentTab)?.component" />
             </div>
           </div>

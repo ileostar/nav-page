@@ -14,7 +14,6 @@ const navSettings = useLocalStorage('nav-settings', {
 
 <template>
   <div class="space-y-4">
-    <h3 class="text-lg font-medium">导航设置</h3>
     <div class="space-y-2">
       <label class="text-sm font-medium">显示方式</label>
       <div class="flex gap-4">

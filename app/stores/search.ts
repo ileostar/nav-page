@@ -14,6 +14,7 @@ export const useSearchStore = defineStore("search", () => {
     { name: 'GitHub', url: 'https://github.com/search?q=', icon: 'i-carbon-logo-github' },
   ])
   const currentEngine = ref<ISearchEngine>(searchEngines.value[0]!)
+  const searchHistory = ref<string[]>([])
 
   const addSearchEngine = (engine: ISearchEngine) => {
     searchEngines.value.push(engine)
@@ -21,11 +22,18 @@ export const useSearchStore = defineStore("search", () => {
 
   const setCurrentEngine = (engine: ISearchEngine) => currentEngine.value = engine
 
+  const addToHistory = (keyword: string) => {
+    if (keyword && !searchHistory.value.includes(keyword)) {
+      searchHistory.value.push(keyword)
+    }
+  }
   return {
     searchEngines,
     currentEngine,
     addSearchEngine,
-    setCurrentEngine
+    setCurrentEngine,
+    searchHistory,
+    addToHistory
   }
 })
 

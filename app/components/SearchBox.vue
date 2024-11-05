@@ -11,10 +11,8 @@ function handleSearch() {
 
   const searchUrl = currentEngine.value.url + encodeURIComponent(keyword.value)
   window.open(searchUrl, '_blank')
-}
-
-function selectEngine(engine: ISearchEngine) {
-  searchStore.setCurrentEngine(engine)
+  // 添加到搜索历史
+  searchStore.addToHistory(keyword.value)
   showEngineList.value = false
 }
 
@@ -26,12 +24,10 @@ function handleKeydown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <!---添加磨砂玻璃效果 -->
   <div class="bg-blur-sm relative z-[999] mx-auto mb-12 mt-8 max-w-4xl w-3xl px-4">
     <div class="relative">
       <div class="relative flex rounded-full bg-white/80 shadow-md backdrop-blur-md backdrop-saturate-150">
-        <!-- 搜索引擎选择器 -->
-        <div class="relative rd-10 bg-white/90 backdrop-blur-sm">
+        <div class="relative">
           <button
             class="h-12 flex items-center gap-2 rounded-l-full px-4 transition-colors hover:bg-gray-100/80"
             @click="showEngineList = !showEngineList"
@@ -41,7 +37,6 @@ function handleKeydown(e: KeyboardEvent) {
             <div class="i-carbon-chevron-down text-sm" />
           </button>
 
-          <!-- 搜索引擎下拉列表 -->
           <div
             v-show="showEngineList"
             class="absolute left-0 top-full z-50 mt-2 w-32 rounded-lg bg-white/90 py-2 shadow-lg backdrop-blur-md"
@@ -50,7 +45,7 @@ function handleKeydown(e: KeyboardEvent) {
               v-for="engine in searchEngines"
               :key="engine.name"
               class="w-full flex items-center gap-2 px-4 py-2 text-left transition-colors hover:bg-gray-100/80"
-              @click="selectEngine(engine)"
+              @click="searchStore.setCurrentEngine(engine)"
             >
               <div :class="engine.icon" class="text-xl" />
               <span class="text-sm">{{ engine.name }}</span>
@@ -58,7 +53,6 @@ function handleKeydown(e: KeyboardEvent) {
           </div>
         </div>
 
-        <!-- 搜索输入框 -->
         <input
           v-model="keyword"
           type="text"
@@ -67,7 +61,6 @@ function handleKeydown(e: KeyboardEvent) {
           @keydown="handleKeydown"
         >
 
-        <!-- 搜索按钮 -->
         <button
           class="h-12 flex items-center gap-2 rounded-r-full px-6 transition-colors hover:bg-gray-100/80"
           @click="handleSearch"
