@@ -31,26 +31,32 @@ const navItems = [
 ]
 
 const isExpanded = ref(true)
+
+const configStore = useConfigStore()
+const { iconStyle } = storeToRefs(configStore)
 </script>
 
 <template>
-  <div
-    :class="`relative py-15 w-full flex flex-col items-center justify-center h-screen overflow-hidden ${
-      isExpanded ? '' : 'pb-90'
-    }`"
-  >
+  <div :class="`relative py-15 w-full flex flex-col items-center justify-center h-screen overflow-hidden ${isExpanded ? '' : 'pb-90'
+    }`">
     <Timer v-model="isExpanded" />
 
-    <Transition
-      enter-active-class="transition duration-300 ease-out"
-      enter-from-class="transform translate-y-8 opacity-0"
-      enter-to-class="transform translate-y-0 opacity-100"
-      leave-active-class="transition duration-300 ease-in"
-      leave-from-class="transform translate-y-0 opacity-100"
-      leave-to-class="transform translate-y-8 opacity-0"
-    >
+    <Transition enter-active-class="transition duration-300 ease-out"
+      enter-from-class="transform translate-y-8 opacity-0" enter-to-class="transform translate-y-0 opacity-100"
+      leave-active-class="transition duration-300 ease-in" leave-from-class="transform translate-y-0 opacity-100"
+      leave-to-class="transform translate-y-8 opacity-0">
       <div v-show="isExpanded" class="w-full flex-1 z-1">
-        <NavCards :items="navItems" />
+        <div class="grid gap-4" :class="{
+          'grid-cols-4 md:grid-cols-8 lg:grid-cols-12': iconStyle.display === 'icon',
+          [`grid-cols-1 md:grid-cols-2 lg:grid-cols-${iconStyle.columns}`]: iconStyle.display === 'card',
+        }">
+          <template v-if="iconStyle.display === 'card'">
+            <NavCard :items="navItems" />
+          </template>
+          <template v-else>
+            <NavIcon :items="navItems" />
+          </template>
+        </div>
       </div>
     </Transition>
     <BackgroundImg />

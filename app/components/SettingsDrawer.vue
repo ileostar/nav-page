@@ -76,6 +76,9 @@ const themeColor = ref('#3498db')
         <div class="h-full w-full flex flex-col">
           <!-- Header -->
           <div class="h-30 flex shrink-0 items-center justify-between px-6 pt-4">
+            <div class="absolute z-50 top-0 -left-12 h-12 w-12 flex items-center justify-center cursor-pointer bg-white/20 hover:bg-black/30" @click="closeCallback">
+              <div class="i-carbon:close-large h-8 w-8 text-white transition transform hover:rotate-90 motion-reduce:transition-none motion-reduce:hover:transform-none z-50" />
+            </div>
             <Logos />
             <div class="flex items-center gap-2">
               {{ sidebarItems.find(item => item.label === currentTab)?.label }}
