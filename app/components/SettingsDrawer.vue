@@ -1,226 +1,109 @@
 <script setup lang="ts">
+import AboutSettings from './settings/AboutSettings.vue'
+import BackupSettings from './settings/BackupSettings.vue'
+import IconSettings from './settings/IconSettings.vue'
+import LayoutSettings from './settings/LayoutSettings.vue'
+import ResetSettings from './settings/ResetSettings.vue'
+import SearchSettings from './settings/SearchSettings.vue'
+import SidebarSettings from './settings/SidebarSettings.vue'
+import ThemeSettings from './settings/ThemeSettings.vue'
+import TimeSettings from './settings/TimeSettings.vue'
+
 const toolbarStore = useToolbarStore()
 const { settingVisible } = storeToRefs(toolbarStore)
+const currentTab = ref('搜索栏')
+
+const sidebarItems = [
+  {
+    label: '搜索栏',
+    icon: 'i-carbon-search',
+    component: SearchSettings,
+  },
+  {
+    label: '图标',
+    icon: 'i-carbon-apps',
+    component: IconSettings,
+  },
+  {
+    label: '时间/日期',
+    icon: 'i-carbon-time',
+    component: TimeSettings,
+  },
+  {
+    label: '主题/壁纸',
+    icon: 'i-carbon-paint-brush',
+    component: ThemeSettings,
+  },
+  {
+    label: '布局',
+    icon: 'i-carbon-template',
+    component: LayoutSettings,
+  },
+  {
+    label: '侧边栏',
+    icon: 'i-carbon-side-panel-close',
+    component: SidebarSettings,
+  },
+  {
+    label: '关于',
+    icon: 'i-carbon-information',
+    component: AboutSettings,
+  },
+  {
+    label: '备份和恢复',
+    icon: 'i-carbon:data-backup',
+    component: BackupSettings,
+  },
+  {
+    label: '重置',
+    icon: 'i-carbon-reset',
+    component: ResetSettings,
+  },
+]
+
+const themeColor = ref('#3498db')
 </script>
 
 <template>
   <div class="card flex justify-center">
-    <Drawer v-model:visible="settingVisible" :modal="false" class="relative z-[999] !w-full md:!w-80 lg:!w-[35rem]" header="Right Drawer" position="right">
+    <Drawer
+      v-model:visible="settingVisible"
+      :modal="false"
+      class="relative z-[999] !w-full lg:!w-[38rem] md:!w-80"
+      position="right"
+    >
       <template #container="{ closeCallback }">
-        <div class="h-full w-[600px] flex flex-col">
-          <div class="flex shrink-0 items-center justify-between px-6 pt-4">
-            <span class="inline-flex items-center gap-2">
-              <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="..." fill="var(--p-primary-color)" />
-                <path d="..." fill="var(--p-text-color)" />
-              </svg>
-              <span class="text-primary text-2xl font-semibold">Your Logo</span>
-            </span>
-            <span>
-              <Button type="button" icon="pi pi-times" outlined rounded @click="closeCallback" />
-            </span>
+        <div class="h-full w-full flex flex-col">
+          <!-- Header -->
+          <div class="h-30 flex shrink-0 items-center justify-between px-6 pt-4">
+            <Logos />
+            <div class="flex items-center gap-2">
+              {{ sidebarItems.find(item => item.label === currentTab)?.label }}
+            </div>
           </div>
-          <div class="overflow-y-auto">
-            <ul class="m-0 list-none p-4">
-              <li>
-                <div
-                  v-ripple v-styleclass="{
-                    selector: '@next',
-                    enterFromClass: 'hidden',
-                    enterActiveClass: 'animate-slidedown',
-                    leaveToClass: 'hidden',
-                    leaveActiveClass: 'animate-slideup',
-                  }"
-                  class="text-surface-500 dark:text-surface-400 p-ripple flex cursor-pointer items-center justify-between p-4"
-                >
-                  <span class="font-medium">FAVORITES</span>
-                  <i class="pi pi-chevron-down" />
-                </div>
-                <ul class="m-0 list-none overflow-hidden p-0">
-                  <li>
-                    <a
-                      v-ripple
-                      class="p-ripple text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-home mr-2" />
-                      <span class="font-medium">Dashboard</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-bookmark mr-2" />
-                      <span class="font-medium">Bookmarks</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple v-styleclass="{
-                        selector: '@next',
-                        enterFromClass: 'hidden',
-                        enterActiveClass: 'animate-slidedown',
-                        leaveToClass: 'hidden',
-                        leaveActiveClass: 'animate-slideup',
-                      }"
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-chart-line mr-2" />
-                      <span class="font-medium">Reports</span>
-                      <i class="pi pi-chevron-down ml-auto" />
-                    </a>
-                    <ul
-                      class="m-0 list-none overflow-hidden overflow-y-hidden py-0 pl-4 pr-0 transition-all duration-[400ms] ease-in-out"
-                    >
-                      <li>
-                        <a
-                          v-ripple v-styleclass="{
-                            selector: '@next',
-                            enterFromClass: 'hidden',
-                            enterActiveClass: 'animate-slidedown',
-                            leaveToClass: 'hidden',
-                            leaveActiveClass: 'animate-slideup',
-                          }"
-                          class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                        >
-                          <i class="pi pi-chart-line mr-2" />
-                          <span class="font-medium">Revenue</span>
-                          <i class="pi pi-chevron-down ml-auto" />
-                        </a>
-                        <ul
-                          class="m-0 list-none overflow-hidden overflow-y-hidden py-0 pl-4 pr-0 transition-all duration-[400ms] ease-in-out"
-                        >
-                          <li>
-                            <a
-                              v-ripple
-                              class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                            >
-                              <i class="pi pi-table mr-2" />
-                              <span class="font-medium">View</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              v-ripple
-                              class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                            >
-                              <i class="pi pi-search mr-2" />
-                              <span class="font-medium">Search</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a
-                          v-ripple
-                          class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                        >
-                          <i class="pi pi-chart-line mr-2" />
-                          <span class="font-medium">Expenses</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-users mr-2" />
-                      <span class="font-medium">Team</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-comments mr-2" />
-                      <span class="font-medium">Messages</span>
-                      <span
-                        class="bg-primary text-primary-contrast ml-auto inline-flex items-center justify-center rounded-full"
-                        style="min-width: 1.5rem; height: 1.5rem"
-                      >3</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-calendar mr-2" />
-                      <span class="font-medium">Calendar</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-cog mr-2" />
-                      <span class="font-medium">Settings</span>
-                    </a>
-                  </li>
-                </ul>
+
+          <!-- Content -->
+          <div class="mb-2 h-full w-full flex gap-4 overflow-y-auto pl-3">
+            <!-- Sidebar -->
+            <ul class="w-40 flex flex-col gap-3">
+              <li
+                v-for="item in sidebarItems"
+                :key="item.label"
+                class="h-12 flex cursor-pointer items-center gap-3 rounded-lg px-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                :class="currentTab === item.label ? 'bg-gray-100 dark:bg-gray-800' : ''"
+                @click="currentTab = item.label"
+              >
+                <div :class="item.icon" class="text-xl" />
+                <span>{{ item.label }}</span>
               </li>
             </ul>
-            <ul class="m-0 list-none p-4">
-              <li>
-                <div
-                  v-ripple v-styleclass="{
-                    selector: '@next',
-                    enterFromClass: 'hidden',
-                    enterActiveClass: 'animate-slidedown',
-                    leaveToClass: 'hidden',
-                    leaveActiveClass: 'animate-slideup',
-                  }"
-                  class="text-surface-500 dark:text-surface-400 p-ripple flex cursor-pointer items-center justify-between p-4"
-                >
-                  <span class="font-medium">APPLICATION</span>
-                  <i class="pi pi-chevron-down" />
-                </div>
-                <ul class="m-0 list-none overflow-hidden p-0">
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-folder mr-2" />
-                      <span class="font-medium">Projects</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-chart-bar mr-2" />
-                      <span class="font-medium">Performance</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      v-ripple
-                      class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple flex cursor-pointer items-center rounded p-4 transition-colors duration-150"
-                    >
-                      <i class="pi pi-cog mr-2" />
-                      <span class="font-medium">Settings</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="mt-auto">
-            <hr class="border-surface-200 dark:border-surface-700 mx-4 mb-4 border-0 border-t">
-            <a
-              v-ripple
-              class="text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 p-ripple m-4 flex cursor-pointer items-center gap-2 rounded p-4 transition-colors duration-150"
-            >
-              <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
-              <span class="font-bold">Amy Elsner</span>
-            </a>
+
+            <!-- Settings Panel -->
+            <div class="flex-1 rounded-l-lg bg-white/50 p-4 dark:bg-gray-800/50">
+              <component
+                :is="sidebarItems.find(item => item.label === currentTab)?.component"
+              />
+            </div>
           </div>
         </div>
       </template>
