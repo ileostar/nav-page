@@ -49,14 +49,15 @@ const isExpanded = ref(true)
       leave-from-class="transform translate-y-0 opacity-100"
       leave-to-class="transform translate-y-8 opacity-0"
     >
-      <div v-show="isExpanded" class="w-full flex-1">
+      <div v-show="isExpanded" class="w-full flex-1 z-1">
         <NavCards :items="navItems" />
       </div>
     </Transition>
-
+    <BackgroundImg />
     <DailyQuote />
     <ToolBars />
     <SettingsDrawer />
+    <UserInfosDialog />
     <SupportDialog />
   </div>
 </template>

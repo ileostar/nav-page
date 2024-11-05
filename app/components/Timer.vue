@@ -24,16 +24,14 @@ function toggleExpand() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center">
+  <div class="relative flex flex-col items-center z-10">
     <time
-      class="block cursor-pointer select-none text-8xl font-bold tracking-tighter transition-transform duration-300 hover:opacity-80"
+      class="block cursor-pointer select-none text-9xl font-bold tracking-tighter transition-transform duration-300 hover:opacity-80"
       :datetime="time.toISOString()"
       @click="toggleExpand"
     >
       {{ formattedTime }}
     </time>
-    <div class="w-full">
-      <SearchBox />
-    </div>
+    <SearchBox />
   </div>
 </template>

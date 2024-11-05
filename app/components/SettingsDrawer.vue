@@ -5,9 +5,9 @@ const { settingVisible } = storeToRefs(toolbarStore)
 
 <template>
   <div class="card flex justify-center">
-    <Drawer v-model:visible="settingVisible" class="relative z-[999]" header="Right Drawer" position="right">
+    <Drawer v-model:visible="settingVisible" :modal="false" class="relative z-[999] !w-full md:!w-80 lg:!w-[35rem]" header="Right Drawer" position="right">
       <template #container="{ closeCallback }">
-        <div class="h-full w-[400px] flex flex-col">
+        <div class="h-full w-[600px] flex flex-col">
           <div class="flex shrink-0 items-center justify-between px-6 pt-4">
             <span class="inline-flex items-center gap-2">
               <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">

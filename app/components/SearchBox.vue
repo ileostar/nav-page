@@ -38,7 +38,7 @@ function handleKeydown(e: KeyboardEvent) {
 
 <template>
   <!---添加磨砂玻璃效果 -->
-  <div class="bg-blur-sm relative z-[999] mx-auto mb-12 mt-8 max-w-2xl px-4">
+  <div class="bg-blur-sm relative z-[999] mx-auto mb-12 mt-8 max-w-4xl w-3xl px-4">
     <div class="relative">
       <div class="relative flex rounded-full bg-white/80 shadow-md backdrop-blur-md backdrop-saturate-150">
         <!-- 搜索引擎选择器 -->

@@ -34,7 +34,7 @@ const toolsList = computed(() => [
   {
     icon: 'i-carbon-user-avatar',
     label: '个人信息',
-    action: () => { /* 实现个人信息逻辑 */ },
+    action: toolbarStore.toggleUserInfosVisible,
   },
   {
     icon: 'i-carbon:gift',
@@ -45,9 +45,9 @@ const toolsList = computed(() => [
 </script>
 
 <template>
-  <div v-show="!settingVisible" class="fixed bottom-24 right-0 z-50" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+  <div v-show="!settingVisible" class="fixed bottom-24 right-0 z-50 " @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <div
-      class="flex rounded-l-xl bg-white shadow-lg backdrop-blur transition-all duration-300 dark:bg-dark-800"
+      class="flex rounded-l-xl bg-white/70 backdrop-blur-sm shadow-lg backdrop-blur transition-all duration-300 dark:bg-dark-800"
       :class="isHovered ? 'pr-3 pl-2' : 'px-2'"
     >
       <!-- 工具列表 -->
