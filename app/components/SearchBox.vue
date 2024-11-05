@@ -1,18 +1,7 @@
 <script setup lang="ts">
-interface SearchEngine {
-  name: string
-  url: string
-  icon: string
-}
+const searchStore = useSearchStore()
+const { searchEngines, currentEngine } = storeToRefs(searchStore)
 
-const searchEngines: SearchEngine[] = [
-  { name: '百度', url: 'https://www.baidu.com/s?wd=', icon: 'i-bxl:baidu' },
-  { name: '谷歌', url: 'https://www.google.com/search?q=', icon: 'i-carbon-logo-google' },
-  { name: 'Bing', url: 'https://www.bing.com/search?q=', icon: 'i-bxl:bing' },
-  { name: 'GitHub', url: 'https://github.com/search?q=', icon: 'i-carbon-logo-github' },
-]
-
-const currentEngine = ref<SearchEngine>(searchEngines[0]!)
 const showEngineList = ref(false)
 const keyword = ref('')
 
@@ -24,8 +13,8 @@ function handleSearch() {
   window.open(searchUrl, '_blank')
 }
 
-function selectEngine(engine: SearchEngine) {
-  currentEngine.value = engine
+function selectEngine(engine: ISearchEngine) {
+  searchStore.setCurrentEngine(engine)
   showEngineList.value = false
 }
 

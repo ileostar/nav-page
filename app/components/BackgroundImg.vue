@@ -4,11 +4,3 @@
     <Image  -z-1 src="https://th.bing.com/th/id/R.884a5e9ae32639fa3c200ec0c899162a?rik=PxuBFHjh6b6TVA&pid=ImgRaw&r=0"></Image>
   </div>
 </template>
-
-<script lang="ts" setup>
-
-</script>
-
-<style>
-
-</style>

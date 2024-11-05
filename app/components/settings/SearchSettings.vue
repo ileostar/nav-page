@@ -5,10 +5,9 @@ const searchSettings = useLocalStorage('search-settings', {
   openInNewTab: true,
 })
 
-// 确保在组件加载时，数据是正确的
-onMounted(() => {
-  console.log('当前搜索设置:', searchSettings.value)
-})
+
+const searchStore = useSearchStore()
+const { searchEngines } = storeToRefs(searchStore)
 </script>
 
 <template>
@@ -21,8 +20,8 @@ onMounted(() => {
       <div class="space-y-2">
         <label class="text-sm font-medium">默认搜索引擎</label>
         <select v-model="searchSettings.defaultEngine" class="w-full border rounded-lg p-2">
-          <option v-for="engine in searchEngines" :key="engine.value" :value="engine.value">
-            {{ engine.label }}
+          <option v-for="engine in searchEngines" :key="engine.name" :value="engine.name">
+            {{ engine.name }}
           </option>
         </select>
       </div>
