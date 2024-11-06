@@ -120,7 +120,7 @@ const { themeColor } = storeToRefs(configStore)
             </ul>
 
             <!-- Settings Panel -->
-            <div class="flex-1 rounded-l-lg bg-gray/10 p-3">
+            <div class="flex-1 rounded-l-lg bg-gray/10 p-3 overflow-y-auto overflow-x-hidden  no-scrollbar">
               <component :is="sidebarItems.find(item => item.label === currentTab)?.component" />
             </div>
           </div>
@@ -129,3 +129,14 @@ const { themeColor } = storeToRefs(configStore)
     </Drawer>
   </div>
 </template>
+
+<style scoped>
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

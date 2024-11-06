@@ -172,27 +172,6 @@ const amberSwitch = ref({
           <label>文字颜色</label>
           <ColorPicker v-model="timeSettings.color" class="w-full" />
         </div>
-
-        <div class="space-y-2">
-          <label>对齐方式</label>
-          <div class="flex gap-2">
-            <Button
-              :class="{ 'p-button-primary': timeSettings.textAlign === 'left' }"
-              icon="pi pi-align-left"
-              @click="timeSettings.textAlign = 'left'"
-            />
-            <Button
-              :class="{ 'p-button-primary': timeSettings.textAlign === 'center' }"
-              icon="pi pi-align-center"
-              @click="timeSettings.textAlign = 'center'"
-            />
-            <Button
-              :class="{ 'p-button-primary': timeSettings.textAlign === 'right' }"
-              icon="pi pi-align-right"
-              @click="timeSettings.textAlign = 'right'"
-            />
-          </div>
-        </div>
       </div>
     </BaseCard>
   </div>
