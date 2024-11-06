@@ -33,7 +33,7 @@ onMounted(() => {
 <template>
   <div class="fixed bottom-1 left-0 right-0 text-center">
     <div
-      class="mx-auto max-w-2xl rounded-lg p-1 transition-all "
+      class="mx-auto max-w-2xl rounded-lg p-1 transition-all"
     >
       <div v-if="loading" class="animate-pulse">
         <div class="mb-4 h-6 w-3/4 rounded bg-gray-200 dark:bg-gray-700" />
@@ -52,10 +52,10 @@ onMounted(() => {
 
       <template v-else>
         <div class="group">
-          <p class="mb-1 text-sm font-medium text-white">
+          <p class="mb-1 text-sm text-white font-medium">
             「 {{ quote?.hitokoto }} 」
           </p>
-          <p class="text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <p class="text-sm text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             - {{ quote?.from_who ? `${quote.from_who}「${quote.from}」` : quote?.from }} -
           </p>
         </div>
